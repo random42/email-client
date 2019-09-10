@@ -5,12 +5,13 @@ import socket.EmailSocket;
 import db.EmailDb;
 import controllers.EmailCtrl;
 
-public class EmailListener extends Thread {
+public class SocketListener extends Thread {
 
+    private String user;
     private EmailSocket socket;
     private EmailCtrl ctrl;
 
-    public EmailListener() {
+    public SocketListener() {
         socket = EmailSocket.getInstance();
         ctrl = EmailCtrl.getInstance();
     }
