@@ -2,9 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/TestClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/EmailAccount.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/socket/ClientMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/socket/ServerMessage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/threads/EmailListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/threads/SocketListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/EmailCtrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/EmailCtrl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/db/EmailDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/EmailDb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/Email.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Email.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/socket/EmailSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/socket/EmailSocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/threads/SocketListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/threads/SocketListener.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -95,6 +104,11 @@
     <property name="recentsLimit" value="5" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="" />
+      <recent name="models" />
+      <recent name="socket" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/views" />
     </key>
@@ -160,6 +174,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="TestClient" />
+      <module name="email-client" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2">
@@ -191,10 +213,12 @@
     <list>
       <item itemvalue="Application.Main" />
       <item itemvalue="Application.Test" />
+      <item itemvalue="Application.TestClient" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Test" />
+        <item itemvalue="Application.TestClient" />
       </list>
     </recent_temporary>
   </component>

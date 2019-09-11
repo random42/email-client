@@ -16,46 +16,55 @@ public class EmailSocket {
         return instance;
     }
 
-    public static void init() {
-
-    }
-
 
     private Socket socket;
-    private ObjectInputStream in;
-    private ObjectOutputStream out;
+    private boolean connected;
 
     private EmailSocket() { }
 
     public boolean connect() {
         try {
             socket = new Socket(host, port);
-            in = new ObjectInputStream(socket.getInputStream());
-            out = new ObjectOutputStream(socket.getOutputStream());
+            connected = true;
             return true;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            if (!(e instanceof ConnectException))
+                e.printStackTrace();
             return false;
         }
+    }
+
+    public ObjectOutputStream getOutput() throws IOException {
+        return new ObjectOutputStream(socket.getOutputStream());
+    }
+
+    public ObjectInputStream getInput() throws IOException {
+        return new ObjectInputStream(socket.getInputStream());
     }
 
     public boolean isConnected() {
-        return socket != null && socket.isConnected();
+        return connected;
     }
 
-    public void close() {
-        try {
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public boolean authenticate(String user, Date last) {
+        ClientMessage m = new ClientMessage(user, last);
+        return sendClientMessage(m);
     }
 
-    public boolean send(Email email) {
-        if (!isConnected())
-            throw new Error("Cannot send email on disconnected socket.");
+
+    public boolean sendEmail(Email email) {
+        ClientMessage m = new ClientMessage(ClientMessage.Type.SEND, email);
+        return sendClientMessage(m);
+    }
+
+    public boolean deleteEmail(Email email) {
+        ClientMessage m = new ClientMessage(ClientMessage.Type.DELETE, email);
+        return sendClientMessage(m);
+    }
+
+    private boolean sendClientMessage(ClientMessage m) {
         try {
-            out.writeObject(email);
+            getOutput().writeObject(m);
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -63,14 +72,16 @@ public class EmailSocket {
         }
     }
 
-    public Email listen() {
+    public ServerMessage listen() {
         try {
-            return (Email)in.readObject();
-        } catch (IOException e) {
-            e.printStackTrace();
+            return (ServerMessage)getInput().readObject();
+        } catch (IOException e) { // server disconnected
+            connected = false;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
     }
+
+
 }

@@ -3,21 +3,25 @@ import db.EmailDb;
 import models.Email;
 import socket.EmailSocket;
 
-import java.util.Date;
+import java.util.*;
 
 public class Test {
 
-    public static void init() {
-        EmailDb.init();
-        EmailSocket.getInstance().connect();
-    }
-
     public static void main(String[] args) {
-        init();
         EmailCtrl ctrl = EmailCtrl.getInstance();
-        String user = "Giancarlo";
-        Email test = new Email(0,user, "Mario", "oggetto", "ciao", new Date());
+        ctrl.init();
+        String user = "asd@asd.com";
+        ctrl.setUser(user);
+        ctrl.debugUserInbox(user);
+        if (!ctrl.openSocket()) {
+            System.out.println("Could not establish a connection");
+            return;
+        }
+        System.out.println("authenticated");
+        Set<String> receivers = new HashSet<>();
+        receivers.add("asd@asd.com");
+        receivers.add("miao@asd.com");
+        Email test = new Email(0, user, receivers, "oggetto", "ciao", new Date());
         ctrl.send(test);
     }
-
 }
