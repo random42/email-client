@@ -8,11 +8,11 @@ import socket.ServerMessage;
 
 public class SocketListener extends Thread {
 
-    private String user;
     private EmailSocket socket;
     private EmailCtrl ctrl;
 
     public SocketListener(EmailSocket socket) {
+        setName("SocketListener");
         this.socket = socket;
         ctrl = EmailCtrl.getInstance();
     }

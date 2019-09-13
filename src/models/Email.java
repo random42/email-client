@@ -22,10 +22,14 @@ public class Email implements Serializable {
         this.date = date;
     }
 
+//    public String toString() {
+//        String a = "'";
+//        String s = "','";
+//        return a + id + s + sender + s + receivers + s + subject + s + body + s + date.toString() + a;
+//    }
+
     public String toString() {
-        String a = "'";
-        String s = "','";
-        return a + id + s + sender + s + receivers + s + subject + s + body + s + date.toString() + a;
+        return "from: " + getSender() + "\nsubject: " + getSubject();
     }
 
     public int getId() {

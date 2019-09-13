@@ -12,8 +12,7 @@ public class Test {
         ctrl.init();
         String user = "asd@asd.com";
         ctrl.setUser(user);
-        ctrl.debugUserInbox(user);
-        if (!ctrl.openSocket()) {
+        if (!ctrl.connect()) {
             System.out.println("Could not establish a connection");
             return;
         }

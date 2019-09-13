@@ -9,6 +9,7 @@ import java.util.*;
 
 public class EmailCtrl {
 
+
     private static EmailCtrl instance;
 
     public static EmailCtrl getInstance() {
@@ -30,9 +31,14 @@ public class EmailCtrl {
     public void init() {
         db.init();
     }
+
     public EmailAccount getAccount() {return account;}
 
-    public boolean openSocket() {
+    public String getUser() {
+        return account.getName();
+    }
+
+    public boolean connect() {
         if (!socket.connect())
             return false;
         LinkedList<Email> inbox = account.getInbox();
@@ -44,54 +50,63 @@ public class EmailCtrl {
         return socket.authenticate(account.getName(), lastDate);
     }
 
+    public void disconnect() {
+        socket.disconnect();
+    }
+
     public void setUser(String user) {
         account = new EmailAccount(user);
         loadInbox();
+        db.debugDb();
     }
 
-    public void delete(Email e) {
-        if (!socket.deleteEmail(e)) {
-            error("Socket error deleting email.");
-            return;
-        }
-        account.deleteEmail(e);
-        db.writeEmails(account.getName(), account.getInbox(), false);
+    public boolean delete(Email e) {
+        if (socket.deleteEmail(e)) {
+            account.deleteEmail(e);
+            db.writeEmails(account.getName(), account.getInbox(), false);
+            db.debugDb();
+            return true;
+        } else
+            return false;
     }
 
-    public void send(Email e) {
-        if (!socket.sendEmail(e)) {
-            error("Socket error sending email.");
-        }
+    public boolean send(Email e) {
+        if (socket.sendEmail(e)) {
+            db.debugDb();
+            return true;
+        } else
+            return false;
     }
 
-    public void forward(Email e, Set<String> receivers) {
+    public Email createEmail(Set<String> receivers, String subject, String body) {
+        return new Email(randomId(), getUser(), receivers, subject, body, new Date());
+    }
+
+    public boolean forward(Email e, Set<String> receivers) {
         Email n = new Email(randomId(), account.getName(), receivers, e.getSubject(), e.getBody(), new Date());
-        send(n);
+        return send(n);
     }
 
     public synchronized void onEmails(List<Email> emails) {
         account.addEmails(emails);
-        db.saveEmails(account.getName(), emails);
-        System.out.println("Received");
-        System.out.println(emails);
+        db.saveEmails(getUser(), emails);
+        db.debugDb();
     }
 
     private void loadInbox() {
         account.setInbox((LinkedList<Email>) db.getEmails(account.getName()));
     }
 
-    public void error(Object msg) {
-        System.out.println(msg);
-    }
-
     public int randomId() {
         return (int)(Math.random() * 1000000);
     }
 
-    public void debugUserInbox(String user) {
-        List<Email> inbox = db.getEmails(user);
-        System.out.println(inbox);
+    public boolean isSocketConnected() {
+        return socket.isConnected();
     }
 
-
+    public void clearDb() {
+        account.setInbox(new LinkedList<>());
+        db.clear();
+    }
 }

@@ -64,13 +64,13 @@ public class EmailDb {
 
     public void writeEmails(String user, List<Email> emails, boolean append) {
         try {
-            ObjectOutputStream out = getOutputStream(user);
             List<Email> toWrite;
             if (append) {
                 toWrite = getEmails(user);
                 toWrite.addAll(emails);
             }  else
                 toWrite = emails;
+            ObjectOutputStream out = getOutputStream(user);
             out.writeObject(toWrite);
             out.flush();
             out.close();
@@ -93,6 +93,17 @@ public class EmailDb {
 
     public void saveEmails(String user, List<Email> emails) {
         writeEmails(user, emails, true);
+    }
+
+    public synchronized void debugDb() {
+        File dir = new File(root);
+        List<String> print = new LinkedList<>();
+        for (File f : dir.listFiles()) {
+            String user = f.getName();
+            int size = getEmails(user).size();
+            print.add(user + ": " + size);
+        }
+        System.out.println("DB: " + print);
     }
 
     public void clear() {

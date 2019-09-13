@@ -7,7 +7,7 @@ import models.Email;
 
 public class EmailSocket {
     private static final String host = "localhost";
-    private static final int port = 4999;
+    private static final int port = 10001;
     private static EmailSocket instance;
 
     public static EmailSocket getInstance() {
@@ -31,6 +31,15 @@ public class EmailSocket {
             if (!(e instanceof ConnectException))
                 e.printStackTrace();
             return false;
+        }
+    }
+
+    public void disconnect() {
+        try {
+            socket.close();
+            connected = false;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -63,6 +72,8 @@ public class EmailSocket {
     }
 
     private boolean sendClientMessage(ClientMessage m) {
+        if (!isConnected())
+            return false;
         try {
             getOutput().writeObject(m);
             return true;
