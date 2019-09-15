@@ -70,20 +70,29 @@ public class MainController implements Observer {
                 selected = selection.getSelectedItem();
                 delete.setDisable(false);
                 forward.setDisable(false);
-                showSelectedEmail();
+                showEmail(selected);
             } else {
                 selected = null;
                 delete.setDisable(true);
                 forward.setDisable(true);
+                hideEmail();
             }
         });
     }
 
-    private void showSelectedEmail() {
-        sender.setText(selected.getSender());
-        receivers.setText(String.join(", ", selected.getReceivers()));
-        subject.setText(selected.getSubject());
-        body.setText(selected.getBody());
+    private void showEmail(Email e) {
+        sender.setText(e.getSender());
+        receivers.setText(String.join(", ", e.getReceivers()));
+        subject.setText(e.getSubject());
+        body.setText(e.getBody());
+    }
+
+    private void hideEmail()  {
+        sender.setText("");
+        receivers.setText("");
+        subject.setText("");
+        body.setText("");
+
     }
 
     @FXML
@@ -91,8 +100,10 @@ public class MainController implements Observer {
         if (!ctrl.isSocketConnected()) { // connect
             if (!ctrl.connect()) {
                 ModalController.modal("Error connecting", true);
+            } else {
+                connect.setText("Disconnect");
+                ModalController.modal("Connected!", false);
             }
-            connect.setText("Disconnect");
         } else { // disconnect
             ctrl.disconnect();
             connect.setText("Connect");

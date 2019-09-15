@@ -108,5 +108,6 @@ public class EmailCtrl {
     public void clearDb() {
         account.setInbox(new LinkedList<>());
         db.clear();
+        db.debugDb();
     }
 }
