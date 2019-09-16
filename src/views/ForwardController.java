@@ -43,7 +43,13 @@ public class ForwardController {
 
     @FXML
     private void _forward() {
-        Set<String> rec = new HashSet<>(Arrays.asList(receivers.getText().split("\n")));
+        String recString = receivers.getText().trim();
+        Set<String> rec = new HashSet<>(Arrays.asList(recString.split("\n")));
+        rec.remove("");
+        if (rec.isEmpty()) {
+            ModalController.modal("Put some receivers!", true);
+            return;
+        }
         hide();
         boolean b = ctrl.forward(email, rec);
         ModalController.modal(b ? "Forwarded!" : "Failed", !b);
@@ -59,6 +65,5 @@ public class ForwardController {
         Stage stage = (Stage) receivers.getScene().getWindow();
         stage.hide();
     }
-
 
 }

@@ -40,11 +40,14 @@ public class CreateController {
 
     @FXML
     private void _send() {
-        Set<String> rec = new HashSet<>(Arrays.asList(receivers.getText().split(",")));
-        String sub = subject.getText();
-        String b = body.getText();
+        String recString = receivers.getText().trim();
+        String sub = subject.getText().trim();
+        String b = body.getText().trim();
+        Set<String> rec = new HashSet<>(Arrays.asList(recString.split(",")));
+        rec.remove("");
         if (rec.isEmpty() || sub.equals("")) {
             ModalController.modal("Check fields again!", true);
+            return;
         }
         Email e = ctrl.createEmail(rec, sub, b);
         if (!ctrl.send(e)) {

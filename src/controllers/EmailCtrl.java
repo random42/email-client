@@ -83,7 +83,7 @@ public class EmailCtrl {
     }
 
     public boolean forward(Email e, Set<String> receivers) {
-        Email n = new Email(randomId(), account.getName(), receivers, e.getSubject(), e.getBody(), new Date());
+        Email n = createEmail(receivers, e.getSubject(), e.getBody());
         return send(n);
     }
 

@@ -11,7 +11,7 @@ import javafx.collections.*;
 
 public class ModalController {
 
-    public static void modal(String msg, boolean error) {
+    public static synchronized void modal(String msg, boolean error) {
         FXMLLoader fxmlLoader = new FXMLLoader(ModalController.class.getResource("modal.fxml"));
         Scene scene;
         try {
@@ -32,8 +32,6 @@ public class ModalController {
     @FXML
     private Label msg;
 
-    @FXML
-    private Button close;
 
     public void setText(String s) {
         msg.setText(s);

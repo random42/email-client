@@ -99,6 +99,7 @@ public class MainController implements Observer {
     private void _toggleConnection() {
         if (!ctrl.isSocketConnected()) { // connect
             if (!ctrl.connect()) {
+                connect.setText("Connect");
                 ModalController.modal("Error connecting", true);
             } else {
                 connect.setText("Disconnect");

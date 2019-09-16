@@ -8,9 +8,11 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="314.0" prefWidth="448.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.ForwardController">
    <children>
       <Button fx:id="forward" layoutX="310.0" layoutY="245.0" mnemonicParsing="false" onAction="#_forward" prefHeight="27.0" prefWidth="70.0" text="Forward" />
-      <Label fx:id="sender" layoutX="34.0" layoutY="25.0" prefHeight="33.0" prefWidth="245.0" />
-      <Label fx:id="subject" layoutX="34.0" layoutY="70.0" prefHeight="33.0" prefWidth="267.0" />
+      <Label fx:id="sender" layoutX="146.0" layoutY="25.0" prefHeight="33.0" prefWidth="245.0" />
+      <Label fx:id="subject" layoutX="101.0" layoutY="71.0" prefHeight="33.0" prefWidth="267.0" />
       <TextArea fx:id="receivers" layoutX="34.0" layoutY="166.0" prefHeight="121.0" prefWidth="200.0" />
-      <Label layoutX="23.0" layoutY="124.0" prefHeight="33.0" prefWidth="267.0" text="To: (one user each line)" />
+      <Label layoutX="34.0" layoutY="116.0" prefHeight="33.0" prefWidth="267.0" text="To: (one user each line)" />
+      <Label layoutX="34.0" layoutY="25.0" prefHeight="33.0" prefWidth="104.0" text="Originally from:" />
+      <Label layoutX="34.0" layoutY="71.0" prefHeight="33.0" prefWidth="104.0" text="Subject:" />
    </children>
 </Pane>
