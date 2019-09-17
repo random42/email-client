@@ -10,9 +10,12 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="898.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.MainController">
    <children>
       <ListView fx:id="inbox" layoutX="185.0" layoutY="37.0" prefHeight="471.0" prefWidth="266.0" />
-      <Button fx:id="create" layoutX="38.0" layoutY="231.0" mnemonicParsing="false" onAction="#_create" prefHeight="27.0" prefWidth="98.0" text="New email" />
-      <Button fx:id="delete" layoutX="38.0" layoutY="288.0" mnemonicParsing="false" onAction="#_delete" prefHeight="27.0" prefWidth="98.0" text="Delete" />
-      <Button fx:id="forward" layoutX="38.0" layoutY="342.0" mnemonicParsing="false" onAction="#_forward" prefHeight="27.0" prefWidth="98.0" text="Forward" />
+      <Button fx:id="create" layoutX="38.0" layoutY="164.0" mnemonicParsing="false" onAction="#_create" prefHeight="27.0" prefWidth="98.0" text="New email" />
+      <Button fx:id="delete" layoutX="38.0" layoutY="221.0" mnemonicParsing="false" onAction="#_delete" prefHeight="27.0" prefWidth="98.0" text="Delete" />
+      <Button fx:id="forward" layoutX="38.0" layoutY="275.0" mnemonicParsing="false" onAction="#_forward" prefHeight="27.0" prefWidth="98.0" text="Forward" />
+      <Button fx:id="reply" layoutX="38.0" layoutY="329.0" mnemonicParsing="false" onAction="#_reply" prefHeight="27.0" prefWidth="98.0" text="Reply" />
+      <Button fx:id="replyAll" layoutX="38.0" layoutY="382.0" mnemonicParsing="false" onAction="#_replyAll" prefHeight="27.0" prefWidth="98.0" text="Reply all" />
+      <Button layoutX="51.0" layoutY="466.0" mnemonicParsing="false" onAction="#_clearDb" text="Clear DB" />
       <Text fx:id="sender" layoutX="571.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="204.2060546875" />
       <Label layoutX="509.0" layoutY="37.0" text="From:" />
       <Label layoutX="509.0" layoutY="75.0" text="Subject:" />
@@ -20,8 +23,7 @@
       <Label layoutX="509.0" layoutY="107.0" text="To:" />
       <Text fx:id="receivers" layoutX="571.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="318.2060546875" />
       <TextArea fx:id="body" editable="false" focusTraversable="false" layoutX="509.0" layoutY="179.0" prefHeight="269.0" prefWidth="365.0" />
-      <Button fx:id="connect" layoutX="32.0" layoutY="102.0" mnemonicParsing="false" onAction="#_toggleConnection" prefHeight="27.0" prefWidth="110.0" text="Connect" />
+      <Button fx:id="connect" layoutX="32.0" layoutY="70.0" mnemonicParsing="false" onAction="#_toggleConnection" prefHeight="27.0" prefWidth="110.0" text="Connect" />
       <Label fx:id="user" layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="204.0" />
-      <Button layoutX="51.0" layoutY="466.0" mnemonicParsing="false" onAction="#_clearDb" text="Clear DB" />
    </children>
 </Pane>

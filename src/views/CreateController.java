@@ -55,4 +55,13 @@ public class CreateController {
         }
         close();
     }
+
+    public void setFields(Set<String> rec, String sub, String _body) {
+        if (rec != null)
+            receivers.setText(String.join(",", rec));
+        if (sub != null)
+            subject.setText(sub);
+        if (_body != null)
+            body.setText(_body);
+    }
 }

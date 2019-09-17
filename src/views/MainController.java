@@ -36,6 +36,12 @@ public class MainController implements Observer {
     private Button forward;
 
     @FXML
+    private Button reply;
+
+    @FXML
+    private Button replyAll;
+
+    @FXML
     private ListView<Email> inbox;
 
     @FXML
@@ -62,6 +68,8 @@ public class MainController implements Observer {
         create.setDisable(false);
         delete.setDisable(true);
         forward.setDisable(true);
+        reply.setDisable(true);
+        replyAll.setDisable(true);
         inbox.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         inbox.setItems(FXCollections.observableList(account.getInbox()));
         inbox.getSelectionModel().selectedIndexProperty().addListener((observable) -> {
@@ -70,11 +78,15 @@ public class MainController implements Observer {
                 selected = selection.getSelectedItem();
                 delete.setDisable(false);
                 forward.setDisable(false);
+                reply.setDisable(false);
+                replyAll.setDisable(false);
                 showEmail(selected);
             } else {
                 selected = null;
                 delete.setDisable(true);
                 forward.setDisable(true);
+                reply.setDisable(true);
+                replyAll.setDisable(true);
                 hideEmail();
             }
         });
@@ -113,18 +125,7 @@ public class MainController implements Observer {
 
     @FXML
     private void _create() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("create.fxml"));
-        Scene scene;
-        try {
-            scene = new Scene(fxmlLoader.load());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }
-        Stage stage = new Stage();
-        stage.setTitle("New email");
-        stage.setScene(scene);
-        stage.showAndWait();
+        openCreateWindow(null, null, null);
     }
 
     @FXML
@@ -153,20 +154,50 @@ public class MainController implements Observer {
     }
 
     @FXML
+    private void _reply() {
+        Set<String> rec = new HashSet<>();
+        rec.add(selected.getSender());
+        openCreateWindow(rec, selected.getSubject(), null);
+    }
+
+    @FXML
+    private void _replyAll() {
+        Set<String> rec = new HashSet<>(selected.getReceivers());
+        rec.add(selected.getSender());
+        rec.remove(ctrl.getUser());
+        openCreateWindow(rec, selected.getSubject(), null);
+    }
+
+    @FXML
     private void _clearDb() {
         ctrl.clearDb();
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        Platform.runLater(new Runnable() {
-            public void run() {
-                inbox.setItems(FXCollections.observableList(ctrl.getAccount().getInbox()));
-                if (arg != null) { // arg is the number of emails received
-                    ModalController.modal("Received " + arg + " new emails!", false);
-                }
+        Platform.runLater(() -> {
+            inbox.setItems(FXCollections.observableList(ctrl.getAccount().getInbox()));
+            if (arg != null) { // arg is the number of emails received
+                ModalController.modal("Received " + arg + " new emails!", false);
             }
         });
+    }
+
+    private void openCreateWindow(Set<String> receivers, String subject, String body) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("create.fxml"));
+        Scene scene;
+        try {
+            scene = new Scene(fxmlLoader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        CreateController cc = fxmlLoader.getController();
+        cc.setFields(receivers, subject, body);
+        Stage stage = new Stage();
+        stage.setTitle("New email");
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 
 }
