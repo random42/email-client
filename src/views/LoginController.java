@@ -30,7 +30,7 @@ public class LoginController {
     private void _login() {
         String user = username.getText().trim();
         if (user.equals("")) {
-            ModalController.modal("Enter a username!", true);
+            new Alert(Alert.AlertType.ERROR, "Enter a username!", ButtonType.OK).show();
             return;
         }
         ctrl.setUser(user);

@@ -46,12 +46,12 @@ public class CreateController {
         Set<String> rec = new HashSet<>(Arrays.asList(recString.split(",")));
         rec.remove("");
         if (rec.isEmpty() || sub.equals("")) {
-            ModalController.modal("Check fields again!", true);
+            new Alert(Alert.AlertType.ERROR, "Set receivers and subject!", ButtonType.OK).show();
             return;
         }
         Email e = ctrl.createEmail(rec, sub, b);
         if (!ctrl.send(e)) {
-            ModalController.modal("Error sending email", true);
+            new Alert(Alert.AlertType.ERROR, "Error sending email", ButtonType.OK).show();
         }
         close();
     }

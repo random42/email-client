@@ -5,8 +5,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/email-client/views/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/email-client/views/main.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/CreateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/CreateController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/ForwardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/ForwardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/main.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/ModalController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/modal.fxml" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

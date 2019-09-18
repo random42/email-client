@@ -47,12 +47,12 @@ public class ForwardController {
         Set<String> rec = new HashSet<>(Arrays.asList(recString.split("\n")));
         rec.remove("");
         if (rec.isEmpty()) {
-            ModalController.modal("Put some receivers!", true);
+            new Alert(Alert.AlertType.ERROR, "Set receivers!", ButtonType.OK).show();
             return;
         }
         hide();
         boolean b = ctrl.forward(email, rec);
-        ModalController.modal(b ? "Forwarded!" : "Failed", !b);
+        new Alert(b ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR, b ? "Forwarded!" : "Failed", ButtonType.OK).show();
         close();
     }
 

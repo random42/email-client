@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.collections.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import models.*;
@@ -112,10 +113,10 @@ public class MainController implements Observer {
         if (!ctrl.isSocketConnected()) { // connect
             if (!ctrl.connect()) {
                 connect.setText("Connect");
-                ModalController.modal("Error connecting", true);
+                new Alert(AlertType.ERROR, "Error connecting", ButtonType.OK).show();
             } else {
                 connect.setText("Disconnect");
-                ModalController.modal("Connected!", false);
+                new Alert(AlertType.INFORMATION, "Connected", ButtonType.OK).show();
             }
         } else { // disconnect
             ctrl.disconnect();
@@ -125,13 +126,13 @@ public class MainController implements Observer {
 
     @FXML
     private void _create() {
-        openCreateWindow(null, null, null);
+        openCreateWindow(null, null, null, "New email");
     }
 
     @FXML
     private void _delete() {
         if (!ctrl.delete(selected)) {
-            ModalController.modal("Error deleting email", true);
+            new Alert(AlertType.ERROR, "Error deleting email", ButtonType.OK).show();
         }
     }
 
@@ -157,15 +158,15 @@ public class MainController implements Observer {
     private void _reply() {
         Set<String> rec = new HashSet<>();
         rec.add(selected.getSender());
-        openCreateWindow(rec, selected.getSubject(), null);
+        openCreateWindow(rec, selected.getSubject(), null, "Reply");
     }
 
     @FXML
     private void _replyAll() {
         Set<String> rec = new HashSet<>(selected.getReceivers());
-        rec.add(selected.getSender());
         rec.remove(ctrl.getUser());
-        openCreateWindow(rec, selected.getSubject(), null);
+        rec.add(selected.getSender());
+        openCreateWindow(rec, selected.getSubject(), null, "Reply all");
     }
 
     @FXML
@@ -178,12 +179,12 @@ public class MainController implements Observer {
         Platform.runLater(() -> {
             inbox.setItems(FXCollections.observableList(ctrl.getAccount().getInbox()));
             if (arg != null) { // arg is the number of emails received
-                ModalController.modal("Received " + arg + " new emails!", false);
+                new Alert(Alert.AlertType.INFORMATION, "Received " + arg + " new emails!", ButtonType.OK).show();
             }
         });
     }
 
-    private void openCreateWindow(Set<String> receivers, String subject, String body) {
+    private void openCreateWindow(Set<String> receivers, String subject, String body, String title) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("create.fxml"));
         Scene scene;
         try {
@@ -195,7 +196,7 @@ public class MainController implements Observer {
         CreateController cc = fxmlLoader.getController();
         cc.setFields(receivers, subject, body);
         Stage stage = new Stage();
-        stage.setTitle("New email");
+        stage.setTitle(title);
         stage.setScene(scene);
         stage.showAndWait();
     }
