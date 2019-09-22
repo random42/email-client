@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.collections.*;
+import javafx.stage.WindowEvent;
 
 public class LoginController {
 
@@ -46,6 +47,11 @@ public class LoginController {
         Stage stage = new Stage();
         stage.setTitle("Email client");
         stage.setScene(scene);
+        stage.setOnCloseRequest((WindowEvent t) -> {
+            if (ctrl.isSocketConnected())
+                ctrl.disconnect();
+            System.exit(0);
+        });
         stage.showAndWait();
     }
 

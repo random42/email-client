@@ -175,7 +175,7 @@ public class MainController implements Observer {
     }
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void update(Observable o, Object arg) { // email account
         Platform.runLater(() -> {
             inbox.setItems(FXCollections.observableList(ctrl.getAccount().getInbox()));
             if (arg != null) { // arg is the number of emails received

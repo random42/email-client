@@ -35,6 +35,8 @@ public class EmailSocket {
     }
 
     public void disconnect() {
+        if (!isConnected())
+            return;
         try {
             socket.close();
             connected = false;
